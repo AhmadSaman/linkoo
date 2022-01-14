@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <Box>
       <Text fontSize={"2xl"} color={"text"}>
-        hello world
+        Ahmad Saman
       </Text>
       <Button>Button</Button>
     </Box>
