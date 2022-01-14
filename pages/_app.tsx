@@ -12,8 +12,18 @@ const fonts = {
   heading: "IBM Plex Sans",
   body: "IBM Plex Sans",
 };
-const theme = extendTheme({ colors, fonts });
-
+const textStyles = {
+  title: {
+    // you can also use responsive styles
+    fontSize: ["32px"],
+    fontWeight: "bold",
+  },
+  normal: {
+    fontSize: ["16px"],
+    fontWeight: "normal",
+  },
+};
+const theme = extendTheme({ colors, fonts, textStyles });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
