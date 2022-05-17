@@ -16,9 +16,10 @@ export const Search: React.FC = () => {
           backgroundColor={"box"}
           rounded={"md"}
         >
-          <BiSearchAlt2 size={"30px"} style={{ backgroundColor: "#393E46" }} />
+          <BiSearchAlt2 size={"25px"} style={{ backgroundColor: "#393E46" }} />
         </InputLeftElement>
         <Input
+          placeholder="Search..."
           backgroundColor={"box"}
           _hover={{ outline: "none" }}
           _active={{ outline: "none" }}
