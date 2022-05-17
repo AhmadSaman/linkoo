@@ -4,7 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/ibm-plex-sans";
 const colors = {
   text: "#EEEEEE",
-  Box: "#393E46",
+  box: "#393E46",
   background: "#222831",
   secondary: "#00ADB5",
 };

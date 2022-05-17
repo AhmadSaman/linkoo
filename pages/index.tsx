@@ -2,10 +2,12 @@ import type { NextPage } from "next";
 import { Text, Button, Box, Container } from "@chakra-ui/react";
 import supabase from "../utils/supabase";
 import Navbar from "../components/Navbar";
+import { Search } from "../components/Search";
 const Home: NextPage = ({ posts }: any) => {
   return (
     <Container maxW={"1100px"}>
       <Navbar />
+      <Search />
       <Text fontSize={"2xl"} color={"text"}>
         Ahmad Saman
       </Text>
