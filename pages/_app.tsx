@@ -15,7 +15,7 @@ const fonts = {
 const textStyles = {
   title: {
     // you can also use responsive styles
-    fontSize: ["32px"],
+    fontSize: ["20px"],
     fontWeight: "bold",
   },
   normal: {

@@ -1,15 +1,17 @@
 import type { NextPage } from "next";
-import { Text, Button, Box } from "@chakra-ui/react";
+import { Text, Button, Box, Container } from "@chakra-ui/react";
 import supabase from "../utils/supabase";
+import Navbar from "../components/Navbar";
 const Home: NextPage = ({ posts }: any) => {
   return (
-    <Box>
+    <Container maxW={"1100px"}>
+      <Navbar />
       <Text fontSize={"2xl"} color={"text"}>
         Ahmad Saman
       </Text>
       <Button>Button</Button>
       <Text color={"text"}>{JSON.stringify(posts, null, 2)}</Text>
-    </Box>
+    </Container>
   );
 };
 export async function getStaticProps() {
