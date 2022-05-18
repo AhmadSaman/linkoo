@@ -10,18 +10,20 @@ export const Search: React.FC = () => {
         borderColor={"box"}
         rounded={"md"}
         color={"text"}
+        transition={".3s"}
+        _hover={{
+          transform: "scale(1.1)",
+          backgroundColor: "white",
+        }}
       >
-        <InputLeftElement
-          pointerEvents="none"
-          backgroundColor={"box"}
-          rounded={"md"}
-        >
-          <BiSearchAlt2 size={"25px"} style={{ backgroundColor: "#393E46" }} />
-        </InputLeftElement>
         <Input
           placeholder="Search..."
           backgroundColor={"box"}
-          _hover={{ outline: "none" }}
+          _hover={{
+            outline: "none",
+            backgroundColor: "inherit",
+            color: "#222831",
+          }}
           _active={{ outline: "none" }}
           _focus={{ outline: "none" }}
         />
