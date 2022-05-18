@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 
 export const Card: React.FC = () => {
   return (
     <Box
       backgroundColor={""}
-      width={["100%", "100%", "33%", "25%"]}
+      width={["100%", "100%", "45%", "30%"]}
+      margin={"3"}
       bgColor={"box"}
       rounded={"md"}
       overflow={"auto"}
@@ -30,12 +31,22 @@ export const Card: React.FC = () => {
         <Text
           fontSize={"sm"}
           color={"text"}
-          padding={"3"}
+          paddingX={"3"}
           backgroundColor={"inherit"}
         >
           You can learn Adobe Photoshop CC. Graphic Design, Photo Editing \u0026
           Retouching, Learn it all with this Photoshop class.
         </Text>
+        <Flex
+          backgroundColor={"inherit"}
+          marginY={"1"}
+          flexWrap={"wrap"}
+          padding={"1"}
+        >
+          <Badge margin={0.5}>React</Badge>
+          <Badge margin={0.5}>UI</Badge>
+          <Badge margin={0.5}>Javascript</Badge>
+        </Flex>
       </Box>
     </Box>
   );

@@ -9,7 +9,14 @@ const Home: NextPage = () => {
     <Container maxW={"1100px"}>
       <Navbar />
       <Search />
-      <Card />
+      <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </Box>
     </Container>
   );
 };
