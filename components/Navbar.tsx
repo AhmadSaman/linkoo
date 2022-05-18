@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  Text,
-  Button,
-  Avatar,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Avatar } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 const Navbar: React.FC = () => {
   return (
@@ -31,7 +23,10 @@ const Navbar: React.FC = () => {
             color: "#222831",
           }}
         >
-          <Avatar src="https://avatars.githubusercontent.com/u/55833403?v=4" />
+          <Avatar
+            src="https://avatars.githubusercontent.com/u/55833403?v=4"
+            name="Ahmad Saman"
+          />
 
           <Text
             textStyle={"title"}

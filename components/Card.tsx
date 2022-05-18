@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Badge, Box, Flex, Image, Text, Avatar } from "@chakra-ui/react";
 
 export const Card: React.FC = () => {
   return (
@@ -41,11 +41,28 @@ export const Card: React.FC = () => {
           backgroundColor={"inherit"}
           marginY={"1"}
           flexWrap={"wrap"}
-          padding={"1"}
+          padding={"3"}
         >
           <Badge margin={0.5}>React</Badge>
           <Badge margin={0.5}>UI</Badge>
           <Badge margin={0.5}>Javascript</Badge>
+        </Flex>
+        <Flex padding={"3"} background={"inherit"}>
+          <Avatar
+            size={"xs"}
+            src="https://avatars.githubusercontent.com/u/55833403?v=4"
+            name={"ahmad Saman"}
+            rounded={"full"}
+          />
+          <Text
+            backgroundColor={"inherit"}
+            color={"text"}
+            alignSelf={"center"}
+            marginLeft={"2"}
+            fontSize={"sm"}
+          >
+            Ahmad Saman
+          </Text>
         </Flex>
       </Box>
     </Box>
