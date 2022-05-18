@@ -3,7 +3,7 @@ import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
 export const Search: React.FC = () => {
   return (
-    <Box width={["100%", "90", "60%"]} marginX={"auto"} marginY={"4"}>
+    <Box width={["100%", "90", "60%"]} marginX={"auto"} marginY={"10"}>
       <InputGroup
         backgroundColor={"box"}
         outline={"none"}

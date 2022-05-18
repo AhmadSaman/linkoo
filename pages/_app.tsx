@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/ibm-plex-sans";
 const colors = {
   text: "#EEEEEE",
@@ -27,7 +27,9 @@ const theme = extendTheme({ colors, fonts, textStyles });
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <Box background={"background"}>
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
   );
 }
