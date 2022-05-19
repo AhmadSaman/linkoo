@@ -13,9 +13,20 @@ import {
   DrawerCloseButton,
   DrawerBody,
   DrawerFooter,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+  InputRightElement,
+  Textarea,
+  List,
+  ListItem,
+  ListIcon,
+  Badge,
+  Image,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
-
+import { MdContentPaste } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
 const Navbar: React.FC = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement>(null);
@@ -74,6 +85,7 @@ const Navbar: React.FC = () => {
     </Flex>
   );
 };
+
 interface DrawerProps {
   ref: React.RefObject<HTMLButtonElement>;
   isOpen: boolean;
@@ -95,13 +107,78 @@ const DrawerComp: React.FC<DrawerProps> = ({
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>ahmad saman</DrawerHeader>
-        <DrawerBody>hey</DrawerBody>
+        <DrawerHeader>Post </DrawerHeader>
+        <DrawerBody>
+          <InputGroup>
+            <InputLeftAddon>Link</InputLeftAddon>
+            <Input type={"text"} placeholder="paste your Link" />
+            <InputRightElement height={"1.75rem"} margin={"1.5"}>
+              <Button h="1.75rem" size="sm">
+                <MdContentPaste />
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <Flex marginTop={"5"} flexDirection={"column"}>
+            <Text fontSize={"xl"} fontWeight={"bold"} marginY={"2"}>
+              Information
+            </Text>
+            <InputGroup flexDirection={"column"}>
+              <Text fontSize={"md"} marginBottom={"1"}>
+                Title:
+              </Text>
+              <Input type={"text"} value={""} />
+            </InputGroup>
+            <InputGroup marginTop={"2"} flexDirection={"column"}>
+              <Text fontSize={"md"} marginBottom={"1"}>
+                Image:
+              </Text>
+              <Input placeholder={"Image Link"} />
+              {/* <Box marginTop={"3"} width={"100px"}>
+                <Image
+                  src={"https://bit.ly/dan-abramov"}
+                  alt={"card Image"}
+                  rounded={"md"}
+                />
+              </Box> */}
+            </InputGroup>
+            <InputGroup marginTop={"2"} flexDirection={"column"}>
+              <Text fontSize={"md"} marginBottom={"1"}>
+                Description:
+              </Text>
+              <Textarea placeholder={"Description"} />
+            </InputGroup>
+            <InputGroup marginTop={"2"} flexDirection={"column"}>
+              <Text fontSize={"md"} marginBottom={"1"}>
+                Tags:
+              </Text>
+              <Box backgroundColor={"text"} rounded={"md"}>
+                <Input placeholder={"Tags"} backgroundColor={"white"} />
+                <List spacing={"3"} transition={".3s"} margin={"2"}>
+                  <ListItem display={"flex"}>
+                    <ListIcon
+                      as={TiDelete}
+                      color={"red.500"}
+                      alignSelf={"center"}
+                      width={"20px"}
+                    />
+                    <Badge>React</Badge>
+                  </ListItem>
+                </List>
+              </Box>
+            </InputGroup>
+          </Flex>
+        </DrawerBody>
         <DrawerFooter>
-          <Button variant="outline" mr={3} onClick={onClose}>
+          <Button mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button colorScheme="blue">Save</Button>
+          <Button
+            bgColor="secondary"
+            color={"text"}
+            _hover={{ color: "#00ADB5", backgroundColor: "white" }}
+          >
+            Save
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
