@@ -25,6 +25,7 @@ import {
   Badge,
   Image,
   Link,
+  Tooltip,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdContentPaste } from "react-icons/md";
@@ -34,37 +35,41 @@ const Navbar: React.FC = () => {
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
     <Flex paddingY={5} justifyContent={"space-between"} alignItems={"center"}>
-      <Box>
-        <NextLink passHref href={"/dashboard"}>
-          <Link
-            color={"text"}
-            width={"full"}
-            height={"full"}
-            display={"flex"}
-            padding={"5px"}
-            rounded={"md"}
-            backgroundColor={"inherit"}
-            transition={".3s"}
-            _hover={{
-              backgroundColor: "white",
-              rounded: "md",
-              boxSizing: "border-box",
-              cursor: "pointer",
-              transform: "scale(.9)",
-              color: "#222831",
-            }}
-          >
-            <Avatar
-              src="https://avatars.githubusercontent.com/u/55833403?v=4"
-              name="Ahmad Saman"
-            />
+      <Tooltip label="Go to Dashboard" aria-label="A tooltip">
+        <Box>
+          {" "}
+          <NextLink passHref href={"/dashboard"}>
+            <Link
+              color={"text"}
+              width={"full"}
+              height={"full"}
+              display={"flex"}
+              padding={"5px"}
+              rounded={"md"}
+              backgroundColor={"inherit"}
+              transition={".3s"}
+              _hover={{
+                backgroundColor: "white",
+                rounded: "md",
+                boxSizing: "border-box",
+                cursor: "pointer",
+                transform: "scale(.9)",
+                color: "#222831",
+              }}
+            >
+              <Avatar
+                src="https://avatars.githubusercontent.com/u/55833403?v=4"
+                name="Ahmad Saman"
+              />
 
-            <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
-              Ahmad Saman
-            </Text>
-          </Link>
-        </NextLink>
-      </Box>
+              <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
+                Ahmad Saman{" "}
+              </Text>
+            </Link>
+          </NextLink>
+        </Box>
+      </Tooltip>
+
       <Box width={{ md: "10%" }}>
         <Button
           ref={btnRef}
