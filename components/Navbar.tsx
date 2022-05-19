@@ -59,12 +59,7 @@ const Navbar: React.FC = () => {
               name="Ahmad Saman"
             />
 
-            <Text
-              textStyle={"title"}
-              alignSelf={"center"}
-              backgroundColor={"inherit"}
-              marginLeft={"2"}
-            >
+            <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
               Ahmad Saman
             </Text>
           </Link>
