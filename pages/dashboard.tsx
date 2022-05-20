@@ -52,11 +52,17 @@ const Header: React.FC = () => {
           </Link>
         </LinkNext>
       </Box>
-      <Text fontSize={"4xl"} marginLeft={"5"} color={"text"}>
+      <Text
+        fontSize={["md", "md", "lg", "4xl"]}
+        marginLeft={"5"}
+        color={"text"}
+        alignSelf={"center"}
+        fontWeight={"bold"}
+      >
         Your Dashboard
       </Text>
       <Button marginLeft={"auto"} alignSelf={"center"} colorScheme={"red"}>
-        Log out
+        Logout
       </Button>
     </Flex>
   );
