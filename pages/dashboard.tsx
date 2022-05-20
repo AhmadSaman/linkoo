@@ -55,6 +55,9 @@ const Header: React.FC = () => {
       <Text fontSize={"4xl"} marginLeft={"5"} color={"text"}>
         Your Dashboard
       </Text>
+      <Button marginLeft={"auto"} alignSelf={"center"} colorScheme={"red"}>
+        Log out
+      </Button>
     </Flex>
   );
 };
