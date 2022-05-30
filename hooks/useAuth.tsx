@@ -1,11 +1,42 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { ApiError, Provider, Session, User } from "@supabase/supabase-js";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import supabase from "../utils/supabase";
 
-const AuthContext = createContext("Default Value");
+interface Props {
+  children: ReactNode;
+}
+interface Values {
+  signUp: () => Promise<{
+    user: User | null;
+    session: Session | null;
+    error: ApiError | null;
+  }>;
+  signIn: () => Promise<{
+    session: Session | null;
+    user: User | null;
+    provider?: Provider | undefined;
+    url?: string | null | undefined;
+    error: ApiError | null;
+  }>;
+  signOut: () => Promise<{
+    error: ApiError | null;
+  }>;
+  user: User | null;
+}
 
-export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<null | any>(null);
-  const [loading, setLoading] = useState(true);
+const AuthContext = createContext<Values | null>(null);
+
+export const AuthProvider: ({ children }: Props) => JSX.Element = ({
+  children,
+}: Props) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const session = supabase.auth.session();
     setUser(session?.user ?? null);
@@ -21,19 +52,20 @@ export const AuthProvider = ({ children }: any) => {
       listener?.unsubscribe();
     };
   }, []);
-  const value: any = {
-    signUp: (data: any) => supabase.auth.signUp(data),
-    signIn: (data: any) => supabase.auth.signIn(data),
+
+  const values: Values = {
+    signUp: () => supabase.auth.signUp({ provider: "google" }),
+    signIn: () => supabase.auth.signIn({ provider: "google" }),
     signOut: () => supabase.auth.signOut(),
     user,
   };
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={values}>
       {!loading && children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
+export const useAuth: () => Values | null = () => {
   return useContext(AuthContext);
 };
