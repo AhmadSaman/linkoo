@@ -62,12 +62,17 @@ const Navbar: React.FC = () => {
                 }}
               >
                 <Avatar
-                  src="https://avatars.githubusercontent.com/u/55833403?v=4"
-                  name="Ahmad Saman"
+                  src={user.user_metadata.avatar_url}
+                  name={user.user_metadata.full_name}
                 />
 
-                <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
-                  Ahmad Saman{" "}
+                <Text
+                  textStyle={"title"}
+                  alignSelf={"center"}
+                  marginLeft={"2"}
+                  textTransform={"capitalize"}
+                >
+                  {user.user_metadata.full_name}
                 </Text>
               </Link>
             </NextLink>
