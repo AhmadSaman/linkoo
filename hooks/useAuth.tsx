@@ -11,7 +11,7 @@ import supabase from "../utils/supabase";
 interface Props {
   children: ReactNode;
 }
-interface Values {
+export interface Values {
   signUp: () => Promise<{
     user: User | null;
     session: Session | null;

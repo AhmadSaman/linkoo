@@ -30,73 +30,95 @@ import {
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdContentPaste } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
+import { useAuth } from "../hooks/useAuth";
+
 const Navbar: React.FC = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const { signIn, user }: any = useAuth();
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
     <Flex paddingY={5} justifyContent={"space-between"} alignItems={"center"}>
-      <Tooltip label="Go to Dashboard" aria-label="A tooltip">
-        <Box>
-          {" "}
-          <NextLink passHref href={"/dashboard"}>
-            <Link
-              color={"text"}
-              width={"full"}
-              height={"full"}
-              display={"flex"}
-              padding={"5px"}
-              rounded={"md"}
-              backgroundColor={"inherit"}
-              transition={".3s"}
-              _hover={{
-                backgroundColor: "white",
-                rounded: "md",
-                boxSizing: "border-box",
-                cursor: "pointer",
-                transform: "scale(.9)",
-                color: "#222831",
-              }}
-            >
-              <Avatar
-                src="https://avatars.githubusercontent.com/u/55833403?v=4"
-                name="Ahmad Saman"
-              />
+      {user && (
+        <Tooltip label="Go to Dashboard" aria-label="A tooltip">
+          <Box>
+            {" "}
+            <NextLink passHref href={"/dashboard"}>
+              <Link
+                color={"text"}
+                width={"full"}
+                height={"full"}
+                display={"flex"}
+                padding={"5px"}
+                rounded={"md"}
+                backgroundColor={"inherit"}
+                transition={".3s"}
+                _hover={{
+                  backgroundColor: "white",
+                  rounded: "md",
+                  boxSizing: "border-box",
+                  cursor: "pointer",
+                  transform: "scale(.9)",
+                  color: "#222831",
+                }}
+              >
+                <Avatar
+                  src="https://avatars.githubusercontent.com/u/55833403?v=4"
+                  name="Ahmad Saman"
+                />
 
-              <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
-                Ahmad Saman{" "}
-              </Text>
-            </Link>
-          </NextLink>
+                <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"}>
+                  Ahmad Saman{" "}
+                </Text>
+              </Link>
+            </NextLink>
+          </Box>
+        </Tooltip>
+      )}
+
+      {user && (
+        <Box width={{ md: "10%" }}>
+          <Button
+            ref={btnRef}
+            onClick={onOpen}
+            width={"full"}
+            bgColor={"secondary"}
+            transition={".2s"}
+            _hover={{ transform: "scale(0.9)" }}
+          >
+            <AiOutlinePlus
+              style={{ backgroundColor: "inherit", color: "white" }}
+              size={"30px"}
+            />
+          </Button>
+          <DrawerComp btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
         </Box>
-      </Tooltip>
+      )}
 
-      <Box width={{ md: "10%" }}>
-        <Button
-          ref={btnRef}
-          onClick={onOpen}
-          width={"full"}
-          bgColor={"secondary"}
-          transition={".2s"}
-          _hover={{ transform: "scale(0.9)" }}
-        >
-          <AiOutlinePlus
-            style={{ backgroundColor: "inherit", color: "white" }}
-            size={"30px"}
-          />
-        </Button>
-        <DrawerComp ref={btnRef} isOpen={isOpen} onClose={onClose} />
-      </Box>
+      {!user && (
+        <Box>
+          <Button
+            onClick={signIn}
+            width={"full"}
+            bgColor={"secondary"}
+            transition={".2s"}
+            _hover={{ transform: "scale(0.9)" }}
+            color={"white"}
+          >
+            Join
+          </Button>
+        </Box>
+      )}
     </Flex>
   );
 };
 
 interface DrawerProps {
-  ref: React.RefObject<HTMLButtonElement>;
+  btnRef: React.RefObject<HTMLButtonElement>;
   isOpen: boolean;
   onClose: () => void;
 }
 const DrawerComp: React.FC<DrawerProps> = ({
-  ref,
+  btnRef,
   isOpen,
   onClose,
 }: DrawerProps) => {
@@ -105,7 +127,7 @@ const DrawerComp: React.FC<DrawerProps> = ({
       isOpen={isOpen}
       placement={"right"}
       onClose={onClose}
-      finalFocusRef={ref}
+      finalFocusRef={btnRef}
       size={"md"}
     >
       <DrawerOverlay />
