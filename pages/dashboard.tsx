@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -17,12 +17,22 @@ import LinkNext from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import { NextRouter, useRouter } from "next/router";
 
-const dashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
+  const router: NextRouter = useRouter();
+  const { user }: any = useAuth();
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user, router]);
+
   return (
-    <Container maxW={"1100px"}>
-      <Header />
-      <TabComp />
-    </Container>
+    user && (
+      <Container maxW={"1100px"}>
+        <Header />
+        <TabComp />
+      </Container>
+    )
   );
 };
 
@@ -33,6 +43,7 @@ const Header: React.FC = () => {
     router.back();
     signOut();
   };
+
   return (
     <Flex paddingY={5}>
       <Box
@@ -95,4 +106,4 @@ const TabComp: React.FC = () => {
     </Tabs>
   );
 };
-export default dashboard;
+export default Dashboard;
