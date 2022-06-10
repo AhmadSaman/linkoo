@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import LinkNext from "next/link";
+import { useAuth } from "../hooks/useAuth";
+import { NextRouter, useRouter } from "next/router";
 
-const dashboard = () => {
+const dashboard: React.FC = () => {
   return (
     <Container maxW={"1100px"}>
       <Header />
@@ -25,6 +27,12 @@ const dashboard = () => {
 };
 
 const Header: React.FC = () => {
+  const router: NextRouter = useRouter();
+  const { signOut }: any = useAuth();
+  const handleSignOut = () => {
+    router.back();
+    signOut();
+  };
   return (
     <Flex paddingY={5}>
       <Box
@@ -61,7 +69,12 @@ const Header: React.FC = () => {
       >
         Your Dashboard
       </Text>
-      <Button marginLeft={"auto"} alignSelf={"center"} colorScheme={"red"}>
+      <Button
+        marginLeft={"auto"}
+        alignSelf={"center"}
+        colorScheme={"red"}
+        onClick={handleSignOut}
+      >
         Logout
       </Button>
     </Flex>
