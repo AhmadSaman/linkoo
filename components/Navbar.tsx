@@ -29,12 +29,13 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdContentPaste } from "react-icons/md";
+import { ImGoogle } from "react-icons/im";
 import { TiDelete } from "react-icons/ti";
 import { useAuth } from "../hooks/useAuth";
 
 const Navbar: React.FC = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const { signIn, user }: any = useAuth();
+  const { signIn, signUp, user }: any = useAuth();
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
     <Flex paddingY={5} justifyContent={"space-between"} alignItems={"center"}>
@@ -100,16 +101,30 @@ const Navbar: React.FC = () => {
       )}
 
       {!user && (
-        <Box>
+        <Box display={"flex"} width={"full"}>
+          <Text
+            maxWidth={"90%"}
+            color={"white"}
+            alignSelf={"end"}
+            textStyle={"normal"}
+            textAlign={"end"}
+            mr="2"
+            width={"full"}
+          >
+            Join Linkoo and help the community to grow
+          </Text>
+
           <Button
+            maxWidth={"10%"}
             onClick={signIn}
             width={"full"}
             bgColor={"secondary"}
             transition={".2s"}
             _hover={{ transform: "scale(0.9)" }}
             color={"white"}
+            ml={"2"}
           >
-            Join
+            <ImGoogle size={"30px"} />
           </Button>
         </Box>
       )}
