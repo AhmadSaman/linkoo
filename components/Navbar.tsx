@@ -17,7 +17,7 @@ import DrawerComp from "./DrawerComp";
 
 const Navbar: React.FC = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const { user, signIn }: any = useAuth();
+  const { user, signIn } = useAuth() as Values;
 
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
