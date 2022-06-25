@@ -12,11 +12,6 @@ interface Props {
   children: ReactNode;
 }
 export interface Values {
-  signUp: () => Promise<{
-    user: User | null;
-    session: Session | null;
-    error: ApiError | null;
-  }>;
   signIn: () => Promise<{
     session: Session | null;
     user: User | null;
@@ -27,7 +22,7 @@ export interface Values {
   signOut: () => Promise<{
     error: ApiError | null;
   }>;
-  user: User | null;
+  user?: User | null;
 }
 
 const AuthContext = createContext<Values | null>(null);
@@ -54,7 +49,6 @@ export const AuthProvider: ({ children }: Props) => JSX.Element = ({
   }, []);
 
   const values: Values = {
-    signUp: () => supabase.auth.signUp({ provider: "google" }),
     signIn: () => supabase.auth.signIn({ provider: "google" }),
     signOut: () => supabase.auth.signOut(),
     user,
@@ -67,5 +61,5 @@ export const AuthProvider: ({ children }: Props) => JSX.Element = ({
 };
 
 export const useAuth: () => Values | null = () => {
-  return useContext(AuthContext);
+  return useContext<Values | null>(AuthContext);
 };
