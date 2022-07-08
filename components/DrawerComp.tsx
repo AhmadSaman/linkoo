@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { TiDelete } from "react-icons/ti";
 import { MdContentPaste } from "react-icons/md";
+import usePaste from "../hooks/usePaste";
 
 interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
@@ -35,6 +36,12 @@ const DrawerComp: React.FC<DrawerProps> = ({
   isOpen,
   onClose,
 }: DrawerProps) => {
+  const [value, setValue] = React.useState<String>("");
+  const { paste } = usePaste();
+  const handlePaste = () => {
+    setValue(paste);
+  };
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -50,9 +57,9 @@ const DrawerComp: React.FC<DrawerProps> = ({
         <DrawerBody>
           <InputGroup>
             <InputLeftAddon>Link</InputLeftAddon>
-            <Input type={"text"} placeholder="paste your Link" />
+            <Input type={"text"} placeholder="paste your Link" value={value} />
             <InputRightElement height={"1.75rem"} margin={"1.5"}>
-              <Button h="1.75rem" size="sm">
+              <Button h="1.75rem" size="sm" onClick={handlePaste}>
                 <MdContentPaste />
               </Button>
             </InputRightElement>
