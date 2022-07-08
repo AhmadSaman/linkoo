@@ -36,7 +36,9 @@ const DrawerComp: React.FC<DrawerProps> = ({
   isOpen,
   onClose,
 }: DrawerProps) => {
-  const [value, setValue] = React.useState<String>("");
+  const [value, setValue] = React.useState<
+    string | number | readonly string[] | undefined
+  >("");
   const { paste } = usePaste();
   const handlePaste = () => {
     setValue(paste);
