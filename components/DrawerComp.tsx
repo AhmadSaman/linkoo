@@ -30,24 +30,33 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = object({
   link: string().required(),
+  title: string().required(),
+  image: string().required(),
+  description: string().required(),
 });
 interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
   isOpen: boolean;
   onClose: () => void;
 }
+
 type Form = {
-  register: UseFormRegister<{ link: string }>;
-  handleSubmit: any;
+  register: UseFormRegister<FormValues>;
+  handleSubmit: Function;
   setValue: any;
+};
+type FormValues = {
+  link: string;
+  title: string;
+  image: string;
+  description: string;
 };
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
   const { register, handleSubmit, setValue }: Form = useForm({
-    defaultValues: { link: "" },
+    defaultValues: { link: "", title: "", image: "", description: "" },
     resolver: yupResolver(schema),
   });
-  // const [value, setValue] = React.useState<string | number | readonly string[] | undefined>("");
   const handlePaste = () => {
     navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
   };
@@ -80,13 +89,13 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                 <Text fontSize={"md"} marginBottom={"1"}>
                   Title:
                 </Text>
-                <Input type={"text"} />
+                <Input type={"text"} {...register("title")} />
               </InputGroup>
               <InputGroup marginTop={"2"} flexDirection={"column"}>
                 <Text fontSize={"md"} marginBottom={"1"}>
                   Image:
                 </Text>
-                <Input placeholder={"Image Link"} />
+                <Input placeholder={"Image Link"} {...register("image")} />
                 <Box marginTop={"3"} width={"100px"}>
                   <Image src={"https://bit.ly/dan-abramov"} alt={"card Image"} rounded={"md"} />
                 </Box>
@@ -95,7 +104,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                 <Text fontSize={"md"} marginBottom={"1"}>
                   Description:
                 </Text>
-                <Textarea placeholder={"Description"} />
+                <Textarea placeholder={"Description"} {...register("description")} />
               </InputGroup>
               <InputGroup marginTop={"2"} flexDirection={"column"}>
                 <Text fontSize={"md"} marginBottom={"1"}>
