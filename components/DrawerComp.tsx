@@ -22,10 +22,11 @@ import {
   Text,
   Button,
 } from "@chakra-ui/react";
+import Select from "react-select";
 import { TiDelete } from "react-icons/ti";
 import { MdContentPaste } from "react-icons/md";
 import { useForm, UseFormRegister } from "react-hook-form";
-import { object, string } from "yup";
+import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = object({
@@ -33,6 +34,7 @@ const schema = object({
   title: string().required(),
   image: string().required(),
   description: string().required(),
+  tags: array().required(),
 });
 interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
@@ -50,11 +52,12 @@ type FormValues = {
   title: string;
   image: string;
   description: string;
+  tags: [];
 };
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
   const { register, handleSubmit, setValue }: Form = useForm({
-    defaultValues: { link: "", title: "", image: "", description: "" },
+    defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
   const handlePaste = () => {
@@ -67,8 +70,8 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
   return (
     <Drawer isOpen={isOpen} placement={"right"} onClose={onClose} finalFocusRef={btnRef} size={"md"}>
       <DrawerOverlay />
-      <DrawerContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>Post </DrawerHeader>
           <DrawerBody>
@@ -111,13 +114,14 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                   Tags:
                 </Text>
                 <Box backgroundColor={"text"} rounded={"md"}>
-                  <Input placeholder={"Tags"} backgroundColor={"white"} />
-                  <List spacing={"3"} transition={".3s"} margin={"2"}>
-                    <ListItem display={"flex"}>
-                      <ListIcon as={TiDelete} color={"red.500"} alignSelf={"center"} width={"20px"} />
-                      <Badge>React</Badge>
-                    </ListItem>
-                  </List>
+                  <Select
+                    isMulti
+                    options={[
+                      { value: "react", label: "React" },
+                      { value: "vue", label: "Vue" },
+                      { value: "javaScript", label: "JavaScript" },
+                    ]}
+                  />
                 </Box>
               </InputGroup>
             </Flex>
@@ -135,8 +139,8 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
               Post
             </Button>
           </DrawerFooter>
-        </form>
-      </DrawerContent>
+        </DrawerContent>
+      </form>
     </Drawer>
   );
 };
