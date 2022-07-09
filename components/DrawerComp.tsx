@@ -24,11 +24,13 @@ import {
 } from "@chakra-ui/react";
 import { TiDelete } from "react-icons/ti";
 import { MdContentPaste } from "react-icons/md";
-import usePaste from "../hooks/usePaste";
 import { useForm, UseFormRegister } from "react-hook-form";
 import { object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+const schema = object({
+  link: string().required(),
+});
 interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
   isOpen: boolean;
@@ -37,17 +39,17 @@ interface DrawerProps {
 type Form = {
   register: UseFormRegister<{ link: string }>;
   handleSubmit: any;
+  setValue: any;
 };
 
-const schema = object({
-  link: string().required(),
-});
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
-  const { register, handleSubmit }: Form = useForm({ defaultValues: { link: "" }, resolver: yupResolver(schema) });
-  const [value, setValue] = React.useState<string | number | readonly string[] | undefined>("");
-  const { paste } = usePaste();
+  const { register, handleSubmit, setValue }: Form = useForm({
+    defaultValues: { link: "" },
+    resolver: yupResolver(schema),
+  });
+  // const [value, setValue] = React.useState<string | number | readonly string[] | undefined>("");
   const handlePaste = () => {
-    setValue(paste);
+    navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
   };
   const onSubmit = (data: any) => {
     console.log(data);
@@ -74,11 +76,11 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
               <Text fontSize={"xl"} fontWeight={"bold"} marginY={"2"}>
                 Information
               </Text>
-              <InputGroup fleexDirection={"column"}>
+              <InputGroup flexDirection={"column"}>
                 <Text fontSize={"md"} marginBottom={"1"}>
                   Title:
                 </Text>
-                <Input type={"text"} value={""} />
+                <Input type={"text"} />
               </InputGroup>
               <InputGroup marginTop={"2"} flexDirection={"column"}>
                 <Text fontSize={"md"} marginBottom={"1"}>
