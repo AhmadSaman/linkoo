@@ -29,7 +29,7 @@ const schema = object({
   title: string().required(),
   image: string().required(),
   description: string().required(),
-  tags: array().required(),
+  tags: array().min(1, "more than one").required(),
 });
 interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
@@ -42,7 +42,7 @@ type FormValues = {
   title: string;
   image: string;
   description: string;
-  tags: [];
+  tags: object[];
 };
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
@@ -107,17 +107,15 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                   <Controller
                     name="tags"
                     control={control}
-                    render={({ field: { onChange } }) => (
+                    render={({ field }) => (
                       <Select
                         isMulti
+                        {...field}
                         options={[
                           { value: "react", label: "React" },
                           { value: "vue", label: "Vue" },
                           { value: "javaScript", label: "JavaScript" },
                         ]}
-                        onChange={(value) => {
-                          onChange(value);
-                        }}
                       />
                     )}
                   />
