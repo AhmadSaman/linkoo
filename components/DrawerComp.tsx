@@ -12,10 +12,6 @@ import {
   Input,
   InputRightElement,
   Textarea,
-  List,
-  ListItem,
-  ListIcon,
-  Badge,
   Image,
   Box,
   Flex,
@@ -23,9 +19,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Select from "react-select";
-import { TiDelete } from "react-icons/ti";
 import { MdContentPaste } from "react-icons/md";
-import { useForm, UseFormRegister } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -42,11 +37,6 @@ interface DrawerProps {
   onClose: () => void;
 }
 
-type Form = {
-  register: UseFormRegister<FormValues>;
-  handleSubmit: Function;
-  setValue: any;
-};
 type FormValues = {
   link: string;
   title: string;
@@ -56,7 +46,7 @@ type FormValues = {
 };
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
-  const { register, handleSubmit, setValue }: Form = useForm({
+  const { register, handleSubmit, setValue, control } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
@@ -114,13 +104,22 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                   Tags:
                 </Text>
                 <Box backgroundColor={"text"} rounded={"md"}>
-                  <Select
-                    isMulti
-                    options={[
-                      { value: "react", label: "React" },
-                      { value: "vue", label: "Vue" },
-                      { value: "javaScript", label: "JavaScript" },
-                    ]}
+                  <Controller
+                    name="tags"
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <Select
+                        isMulti
+                        options={[
+                          { value: "react", label: "React" },
+                          { value: "vue", label: "Vue" },
+                          { value: "javaScript", label: "JavaScript" },
+                        ]}
+                        onChange={(value) => {
+                          onChange(value);
+                        }}
+                      />
+                    )}
                   />
                 </Box>
               </InputGroup>
