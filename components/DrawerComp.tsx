@@ -17,12 +17,14 @@ import {
   Flex,
   Text,
   Button,
+  Tooltip,
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { MdContentPaste } from "react-icons/md";
 import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 
 const schema = object({
   link: string().required(),
@@ -52,6 +54,9 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
   });
   const handlePaste = () => {
     navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
+    axios
+      .get("http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=https://react-query-v2.tanstack.com/")
+      .then((res) => console.log(res));
   };
   const onSubmit = (data: any) => {
     console.log(data);
@@ -69,9 +74,11 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
               <InputLeftAddon>Link</InputLeftAddon>
               <Input type={"text"} placeholder="paste your Link" {...register("link")} />
               <InputRightElement height={"1.75rem"} margin={"1.5"}>
-                <Button h="1.75rem" size="sm" onClick={handlePaste}>
-                  <MdContentPaste />
-                </Button>
+                <Tooltip label="Paste & fetch information">
+                  <Button h="1.75rem" size="sm" onClick={handlePaste}>
+                    <MdContentPaste />
+                  </Button>
+                </Tooltip>
               </InputRightElement>
             </InputGroup>
             <Flex marginTop={"5"} flexDirection={"column"}>
