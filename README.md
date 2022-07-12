@@ -2,4 +2,4 @@
 
 # Linkoo
 
-for sharing resource
+for sharing resources
