@@ -53,10 +53,10 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
-  const handlePaste = () => {
+  const handlePaste: () => void = () => {
     navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
   };
-  const handleFetch = () =>
+  const handleFetch: () => Promise<void> = () =>
     axios
       .get(`http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
       .then(({ data }) => console.log(data));
