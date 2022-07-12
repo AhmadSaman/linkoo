@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { MdContentPaste } from "react-icons/md";
+import { FiDownloadCloud } from "react-icons/fi";
 import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -48,16 +49,17 @@ type FormValues = {
 };
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
-  const { register, handleSubmit, setValue, control } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, control, watch } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
   const handlePaste = () => {
     navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
-    axios
-      .get("http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=https://react-query-v2.tanstack.com/")
-      .then((res) => console.log(res));
   };
+  const handleFetch = () =>
+    axios
+      .get(`http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
+      .then(({ data }) => console.log(data));
   const onSubmit = (data: any) => {
     console.log(data);
   };
@@ -73,8 +75,15 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
             <InputGroup>
               <InputLeftAddon>Link</InputLeftAddon>
               <Input type={"text"} placeholder="paste your Link" {...register("link")} />
-              <InputRightElement height={"1.75rem"} margin={"1.5"}>
-                <Tooltip label="Paste & fetch information">
+              <InputRightElement marginRight={"48px"}>
+                <Tooltip label="fetch information">
+                  <Button h="1.75rem" size="sm" onClick={handleFetch}>
+                    <FiDownloadCloud />
+                  </Button>
+                </Tooltip>
+              </InputRightElement>
+              <InputRightElement marginRight={"5px"}>
+                <Tooltip label="Paste link">
                   <Button h="1.75rem" size="sm" onClick={handlePaste}>
                     <MdContentPaste />
                   </Button>
