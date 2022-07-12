@@ -65,7 +65,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
   };
   const handleFetch: () => Promise<void> = () =>
     axios
-      .get(`http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
+      .get(`https://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
       .then(({ data }) => setInformationFormValues(data));
   const onSubmit = (data: any) => {
     console.log(data);
