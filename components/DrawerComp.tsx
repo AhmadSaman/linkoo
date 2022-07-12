@@ -47,6 +47,13 @@ type FormValues = {
   description: string;
   tags: object[];
 };
+type TInfo = {
+  url: "link";
+  title: "title";
+  image: "image";
+  description: "description";
+  tags: "tags";
+};
 
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
   const { register, handleSubmit, setValue, control, watch } = useForm<FormValues>({
@@ -59,9 +66,12 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
   const handleFetch: () => Promise<void> = () =>
     axios
       .get(`http://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
-      .then(({ data }) => console.log(data));
+      .then(({ data }) => setInformationFormValues(data));
   const onSubmit = (data: any) => {
     console.log(data);
+  };
+  const setInformationFormValues: (info: TInfo) => void = (info: TInfo) => {
+    Object.entries(info).map(([index, value]) => setValue(index as "link" | "title" | "image" | "description", value));
   };
 
   return (
@@ -106,7 +116,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                 </Text>
                 <Input placeholder={"Image Link"} {...register("image")} />
                 <Box marginTop={"3"} width={"100px"}>
-                  <Image src={"https://bit.ly/dan-abramov"} alt={"card Image"} rounded={"md"} />
+                  <Image src={watch("image")} alt={"card Image"} rounded={"md"} />
                 </Box>
               </InputGroup>
               <InputGroup marginTop={"2"} flexDirection={"column"}>
