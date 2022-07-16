@@ -9,23 +9,38 @@ type TProps = {
   posts: object[];
   users: object[];
 };
+type TMap = {
+  approved?: true;
+  tags?: object;
+  title: string;
+  created_at?: string;
+  description: string;
+  link: string;
+  img: string;
+  user: string;
+  id: number;
+};
 
 const Home: NextPage<TProps> = ({ posts, users }: TProps) => {
-  console.log(posts);
-
   return (
     <Container maxW={"1100px"}>
       <Navbar />
       <Search />
-      <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"}>
-        {/* <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card /> */}
-        {JSON.stringify(posts)}
-        {JSON.stringify(users)}
+      <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
+        {posts?.map((value) => {
+          const { title, img, link, description, user } = value as TMap;
+          return (
+            <Card
+              key={link}
+              title={title}
+              image={img}
+              description={description}
+              link={link}
+              userName={"Ahmad Saman"}
+              userImage={"https://avatars.githubusercontent.com/u/55833403?v=4"}
+            />
+          );
+        })}
       </Box>
     </Container>
   );
