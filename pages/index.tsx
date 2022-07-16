@@ -7,9 +7,10 @@ import { Card } from "../components/Card";
 
 type TProps = {
   posts: object[];
+  users: object[];
 };
 
-const Home: NextPage<TProps> = ({ posts }: TProps) => {
+const Home: NextPage<TProps> = ({ posts, users }: TProps) => {
   console.log(posts);
 
   return (
@@ -24,15 +25,18 @@ const Home: NextPage<TProps> = ({ posts }: TProps) => {
         <Card />
         <Card /> */}
         {JSON.stringify(posts)}
+        {JSON.stringify(users)}
       </Box>
     </Container>
   );
 };
 export async function getStaticProps() {
-  const { data: posts, error } = await supabase.from("posts").select("*");
+  const { data: posts } = await supabase.from("posts");
+  const { data: users } = await supabase.from("users_public_data");
   return {
     props: {
       posts,
+      users,
     },
   };
 }
