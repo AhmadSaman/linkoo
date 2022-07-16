@@ -4,7 +4,12 @@ import supabase from "../utils/supabase";
 import Navbar from "../components/Navbar";
 import { Search } from "../components/Search";
 import { Card } from "../components/Card";
-const Home: NextPage = ({ posts }) => {
+
+type TProps = {
+  posts: object[];
+};
+
+const Home: NextPage<TProps> = ({ posts }: TProps) => {
   console.log(posts);
 
   return (
