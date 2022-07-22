@@ -1,15 +1,6 @@
 import React from "react";
 import NextLink from "next/link";
-import {
-  Box,
-  Flex,
-  Text,
-  Button,
-  Avatar,
-  useDisclosure,
-  Link,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Avatar, useDisclosure, Link, Tooltip } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImGoogle } from "react-icons/im";
 import { useAuth, Values } from "../hooks/useAuth";
@@ -45,17 +36,9 @@ const Navbar: React.FC = () => {
                   color: "#222831",
                 }}
               >
-                <Avatar
-                  src={user.user_metadata.avatar_url}
-                  name={user.user_metadata.full_name}
-                />
+                <Avatar src={user.user_metadata.avatar_url} name={user.user_metadata.full_name} />
 
-                <Text
-                  textStyle={"title"}
-                  alignSelf={"center"}
-                  marginLeft={"2"}
-                  textTransform={"capitalize"}
-                >
+                <Text textStyle={"title"} alignSelf={"center"} marginLeft={"2"} textTransform={"capitalize"}>
                   {user.user_metadata.full_name}
                 </Text>
               </Link>
@@ -74,10 +57,7 @@ const Navbar: React.FC = () => {
             transition={".2s"}
             _hover={{ transform: "scale(0.9)" }}
           >
-            <AiOutlinePlus
-              style={{ backgroundColor: "inherit", color: "white" }}
-              size={"30px"}
-            />
+            <AiOutlinePlus style={{ backgroundColor: "inherit", color: "white" }} size={"30px"} />
           </Button>
           <DrawerComp btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
         </Box>

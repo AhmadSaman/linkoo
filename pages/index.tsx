@@ -21,14 +21,15 @@ type TMap = {
   id: number;
 };
 
-const Home: NextPage<TProps> = ({ posts, users }: TProps) => {
+const Home: NextPage<TProps> = ({ posts }: TProps) => {
+  console.log(posts);
   return (
     <Container maxW={"1100px"}>
       <Navbar />
       <Search />
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
         {posts?.map((value) => {
-          const { title, img, link, description, user } = value as TMap;
+          const { title, img, link, description, userInfo } = value as TMap;
           return (
             <Card
               key={link}
@@ -36,8 +37,8 @@ const Home: NextPage<TProps> = ({ posts, users }: TProps) => {
               image={img}
               description={description}
               link={link}
-              userName={"Ahmad Saman"}
-              userImage={"https://avatars.githubusercontent.com/u/55833403?v=4"}
+              userName={userInfo?.name}
+              userImage={userInfo?.avatar_url}
             />
           );
         })}
@@ -47,11 +48,9 @@ const Home: NextPage<TProps> = ({ posts, users }: TProps) => {
 };
 export async function getStaticProps() {
   const { data: posts } = await supabase.from("posts");
-  const { data: users } = await supabase.from("users_public_data");
   return {
     props: {
       posts,
-      users,
     },
   };
 }
