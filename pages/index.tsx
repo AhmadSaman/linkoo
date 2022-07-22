@@ -9,6 +9,10 @@ type TProps = {
   posts: object[];
   users: object[];
 };
+type TUserInfo = {
+  name: string;
+  avatar_url: string;
+};
 type TMap = {
   approved?: true;
   tags?: object;
@@ -17,7 +21,7 @@ type TMap = {
   description: string;
   link: string;
   img: string;
-  user: string;
+  userInfo?: TUserInfo;
   id: number;
 };
 

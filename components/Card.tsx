@@ -6,8 +6,8 @@ type TProps = {
   description: string;
   link: string;
   image: string;
-  userName: string;
-  userImage: string;
+  userName?: string;
+  userImage?: string;
 };
 
 export const Card: React.FC<TProps> = ({ title, description, link, image, userName, userImage }) => {
