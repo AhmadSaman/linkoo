@@ -14,14 +14,14 @@ type TUserInfo = {
   avatar: string;
 };
 type TMap = {
-  approved?: true;
-  tags?: object;
+  approved: true;
+  tags: number[];
   title: string;
-  created_at?: string;
+  created_at: string;
   description: string;
   link: string;
   image: string;
-  userInfo?: TUserInfo;
+  userInfo: TUserInfo;
   id: number;
 };
 
@@ -32,7 +32,8 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
       <Search />
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
         {posts?.map((value) => {
-          const { title, image, link, description, userInfo } = value as TMap;
+          const { title, image, link, description, userInfo, tags: postTags } = value as TMap;
+
           return (
             <Card
               key={link}
@@ -42,6 +43,8 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
               link={link}
               userName={userInfo?.name}
               userImage={userInfo?.avatar}
+              tags={tags}
+              postTags={postTags}
             />
           );
         })}

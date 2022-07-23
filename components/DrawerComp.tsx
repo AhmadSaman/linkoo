@@ -62,7 +62,7 @@ type TTag = { id: string; name: string };
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: DrawerProps) => {
   const { user }: any = useAuth();
   const [loadingInfo, setLoadingInfo] = React.useState<boolean>(false);
-  const { register, handleSubmit, setValue, control, watch } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, control, reset, watch } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
@@ -106,6 +106,8 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
       userInfo: { name: user.user_metadata.name, avatar: user.user_metadata.avatar_url },
     };
     console.log(newData);
+    reset();
+    onClose();
     await postPost(newData);
   };
 
