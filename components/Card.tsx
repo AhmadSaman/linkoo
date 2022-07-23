@@ -27,9 +27,11 @@ export const Card: React.FC<TProps> = ({ title, description, link, image, userNa
       <Box
         as={Link}
         isExternal
-        backgroundColor={""}
         width={["100%", "100%", "45%", "30%"]}
-        margin={"3"}
+        height={"full"}
+        display={"flex"}
+        flexDir={"column"}
+        margin={"1"}
         bgColor={"box"}
         rounded={"md"}
         overflow={"auto"}
@@ -39,24 +41,24 @@ export const Card: React.FC<TProps> = ({ title, description, link, image, userNa
       >
         <Image src={image} alt="post" minWidth={"300px"} minHeight={"150px"} objectFit="cover" />
 
-        <Box backgroundColor={"inherit"}>
-          <Text fontWeight={"semibold"} color={"text"} backgroundColor={"inherit"} padding={"3"}>
+        <Box>
+          <Text fontWeight={"semibold"} color={"text"} padding={"3"}>
             {title}
           </Text>
 
-          <Text fontSize={"sm"} color={"text"} paddingX={"3"} backgroundColor={"inherit"}>
+          <Text fontSize={"sm"} color={"text"} paddingX={"3"}>
             {description.length > 200 ? description.slice(0, 200) + "..." : description}
           </Text>
-          <Flex backgroundColor={"inherit"} marginY={"1"} flexWrap={"wrap"} padding={"3"}>
+          <Flex marginY={"1"} flexWrap={"wrap"} padding={"3"}>
             {showTags?.map((tag: TTag) => (
               <Badge key={tag.id} margin={0.5}>
                 {tag.name}
               </Badge>
             ))}
           </Flex>
-          <Flex padding={"3"} background={"inherit"}>
+          <Flex padding={"3"} background={"inherit"} alignItems={"end"} flex={"1"}>
             <Avatar size={"xs"} src={userImage} name={userName} rounded={"full"} />
-            <Text backgroundColor={"inherit"} color={"text"} alignSelf={"center"} marginLeft={"2"} fontSize={"sm"}>
+            <Text color={"text"} alignSelf={"center"} marginLeft={"2"} fontSize={"sm"}>
               {userName}
             </Text>
           </Flex>
