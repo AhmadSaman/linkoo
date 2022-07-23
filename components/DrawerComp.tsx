@@ -96,6 +96,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
 
   const onSubmit = async (data: any) => {
     const newData = {
+      description: data.description,
       title: data.title,
       image: data.image,
       link: data.link,
