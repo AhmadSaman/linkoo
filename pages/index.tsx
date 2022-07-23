@@ -11,7 +11,7 @@ type TProps = {
 };
 type TUserInfo = {
   name: string;
-  avatar_url: string;
+  avatar: string;
 };
 type TMap = {
   approved?: true;
@@ -41,7 +41,7 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
               description={description}
               link={link}
               userName={userInfo?.name}
-              userImage={userInfo?.avatar_url}
+              userImage={userInfo?.avatar}
             />
           );
         })}
@@ -49,7 +49,7 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
     </Container>
   );
 };
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { data: posts } = await getPosts();
   const { data: tags } = await getTags();
   return {
