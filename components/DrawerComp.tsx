@@ -105,7 +105,6 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
       userId: user?.id,
       userInfo: { name: user.user_metadata.name, avatar: user.user_metadata.avatar_url },
     };
-    console.log(newData);
     reset();
     onClose();
     await postPost(newData);
