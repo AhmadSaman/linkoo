@@ -37,13 +37,15 @@ export const Card: React.FC<TProps> = ({ title, description, link, image, userNa
         cursor={"pointer"}
         _hover={{ transform: "scale(0.9)" }}
       >
-        <Image src={image} alt="post" minWidth={"200px"} loading={"lazy"} minHeight={"200px"} objectFit="cover" />
+        <Image src={image} alt="post" minWidth={"300px"} minHeight={"150px"} objectFit="cover" />
+
         <Box backgroundColor={"inherit"}>
           <Text fontWeight={"semibold"} color={"text"} backgroundColor={"inherit"} padding={"3"}>
             {title}
           </Text>
+
           <Text fontSize={"sm"} color={"text"} paddingX={"3"} backgroundColor={"inherit"}>
-            {description}
+            {description.length > 200 ? description.slice(0, 200) + "..." : description}
           </Text>
           <Flex backgroundColor={"inherit"} marginY={"1"} flexWrap={"wrap"} padding={"3"}>
             {showTags?.map((tag: TTag) => (
