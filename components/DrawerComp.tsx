@@ -26,6 +26,7 @@ import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { getTags } from "../apis/apis";
 
 const schema = object({
   link: string().required(),
@@ -38,6 +39,7 @@ interface DrawerProps {
   btnRef: React.RefObject<HTMLButtonElement>;
   isOpen: boolean;
   onClose: () => void;
+  tags: object[];
 }
 
 type FormValues = {
@@ -54,8 +56,8 @@ type TInfo = {
   description: "description";
   tags: "tags";
 };
-
-const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerProps) => {
+type TTag = { id: string; name: string };
+const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: DrawerProps) => {
   const { register, handleSubmit, setValue, control, watch } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
@@ -73,6 +75,15 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
   const setInformationFormValues: (info: TInfo) => void = (info: TInfo) => {
     Object.entries(info).map(([index, value]) => setValue(index as "link" | "title" | "image" | "description", value));
   };
+
+  const formatTags: (tags: object[]) => {
+    label: string;
+    value: string;
+  }[] = (tags: object[]) =>
+    tags.map((tag) => {
+      const { name, id } = tag as TTag;
+      return { label: name, value: id };
+    });
 
   return (
     <Drawer isOpen={isOpen} placement={"right"} onClose={onClose} finalFocusRef={btnRef} size={"md"}>
@@ -133,17 +144,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose }: DrawerPr
                   <Controller
                     name="tags"
                     control={control}
-                    render={({ field }) => (
-                      <Select
-                        isMulti
-                        {...field}
-                        options={[
-                          { value: "react", label: "React" },
-                          { value: "vue", label: "Vue" },
-                          { value: "javaScript", label: "JavaScript" },
-                        ]}
-                      />
-                    )}
+                    render={({ field }) => <Select isMulti {...field} options={formatTags(tags)} />}
                   />
                 </Box>
               </InputGroup>
