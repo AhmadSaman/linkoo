@@ -37,7 +37,7 @@ export const Card: React.FC<TProps> = ({ title, description, link, image, userNa
         cursor={"pointer"}
         _hover={{ transform: "scale(0.9)" }}
       >
-        <Image src={image} alt="post" width={"full"} />
+        <Image src={image} alt="post" minWidth={"200px"} loading={"lazy"} minHeight={"200px"} objectFit="cover" />
         <Box backgroundColor={"inherit"}>
           <Text fontWeight={"semibold"} color={"text"} backgroundColor={"inherit"} padding={"3"}>
             {title}
