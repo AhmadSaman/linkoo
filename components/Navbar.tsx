@@ -5,11 +5,12 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { ImGoogle } from "react-icons/im";
 import { useAuth, Values } from "../hooks/useAuth";
 import DrawerComp from "./DrawerComp";
-
-const Navbar: React.FC = () => {
+type TProps = {
+  tags: object[];
+};
+const Navbar: React.FC<TProps> = ({ tags }: TProps) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { user, signIn } = useAuth() as Values;
-
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
     <Flex paddingY={5} justifyContent={"space-between"} alignItems={"center"}>
@@ -59,7 +60,7 @@ const Navbar: React.FC = () => {
           >
             <AiOutlinePlus style={{ backgroundColor: "inherit", color: "white" }} size={"30px"} />
           </Button>
-          <DrawerComp btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
+          <DrawerComp btnRef={btnRef} isOpen={isOpen} onClose={onClose} tags={tags} />
         </Box>
       )}
 
