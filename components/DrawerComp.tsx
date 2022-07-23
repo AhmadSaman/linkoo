@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -159,7 +159,9 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
                   <Controller
                     name="tags"
                     control={control}
-                    render={({ field }) => <Select isMulti {...field} options={formatTags(tags)} />}
+                    render={({ field }) => (
+                      <Select isMulti {...field} options={formatTags(tags)} menuPlacement={"top"} />
+                    )}
                   />
                 </Box>
               </InputGroup>
