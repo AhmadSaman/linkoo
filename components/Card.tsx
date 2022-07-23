@@ -21,7 +21,6 @@ type TTag = {
 
 export const Card: React.FC<TProps> = ({ title, description, link, image, userName, userImage, tags, postTags }) => {
   const showTags = postTags.map((postId) => tags.filter((tagVal: TTag) => tagVal.id === postId)[0]);
-  console.log(showTags);
 
   return (
     <NextLink href={link} passHref>
