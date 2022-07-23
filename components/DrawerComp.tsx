@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Drawer,
   DrawerOverlay,
@@ -18,6 +18,7 @@ import {
   Text,
   Button,
   Tooltip,
+  Spinner,
 } from "@chakra-ui/react";
 import Select from "react-select";
 import { MdContentPaste } from "react-icons/md";
@@ -26,7 +27,6 @@ import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { getTags } from "../apis/apis";
 
 const schema = object({
   link: string().required(),
@@ -58,24 +58,27 @@ type TInfo = {
 };
 type TTag = { id: string; name: string };
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: DrawerProps) => {
-  const { register, handleSubmit, setValue, control, watch } = useForm<FormValues>({
+  const [loadingInfo, setLoadingInfo] = React.useState<boolean>(false);
+  const { register, handleSubmit, setValue, control, watch, setError } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
     resolver: yupResolver(schema),
   });
   const handlePaste: () => void = () => {
     navigator.clipboard.readText().then((clipText) => setValue("link", clipText));
   };
-  const handleFetch: () => Promise<void> = () =>
+  const handleFetch: () => void = () => {
+    setLoadingInfo(true);
     axios
       .get(`https://api.linkpreview.net/?key=4aab97cbd9dfd9368d30ffcf68313672&q=${watch("link")}`)
-      .then(({ data }) => setInformationFormValues(data));
-  const onSubmit = (data: any) => {
-    console.log(data);
+      .then(({ data }) => {
+        setInformationFormValues(data);
+        setLoadingInfo(false);
+      })
+      .catch(() => setLoadingInfo(false));
   };
   const setInformationFormValues: (info: TInfo) => void = (info: TInfo) => {
     Object.entries(info).map(([index, value]) => setValue(index as "link" | "title" | "image" | "description", value));
   };
-
   const formatTags: (tags: object[]) => {
     label: string;
     value: string;
@@ -84,6 +87,12 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
       const { name, id } = tag as TTag;
       return { label: name, value: id };
     });
+  const generateRandomImg = () =>
+    setValue("image", `https://source.unsplash.com/random/350x200?sig=${Math.floor(Math.random() * 100)}`);
+  const changeTagsFormat = (tags: any) => tags.map((tag: any) => tag.value);
+  const onSubmit = (data: any) => {
+    console.log({ ...data, tags: changeTagsFormat(watch("tags")) });
+  };
 
   return (
     <Drawer isOpen={isOpen} placement={"right"} onClose={onClose} finalFocusRef={btnRef} size={"md"}>
@@ -99,7 +108,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
               <InputRightElement marginRight={"48px"}>
                 <Tooltip label="fetch information">
                   <Button h="1.75rem" size="sm" onClick={handleFetch}>
-                    <FiDownloadCloud />
+                    {loadingInfo ? <Spinner size={"xs"} /> : <FiDownloadCloud />}
                   </Button>
                 </Tooltip>
               </InputRightElement>
@@ -126,8 +135,14 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
                   Image:
                 </Text>
                 <Input placeholder={"Image Link"} {...register("image")} />
-                <Box marginTop={"3"} width={"100px"}>
-                  <Image src={watch("image")} alt={"card Image"} rounded={"md"} />
+                <Text fontSize={"xs"}>note: invalid image will not be accepted </Text>
+                <Box marginTop={"3"} width={"full"} display={"flex"} justifyContent={"space-between"}>
+                  <Button size={"xs"} onClick={generateRandomImg}>
+                    <Text fontSize={"xs"}>Generate Image</Text>
+                  </Button>
+                  {watch("image") && (
+                    <Image src={watch("image")} maxHeight={"100px"} width={"110px"} alt={"card Image"} rounded={"md"} />
+                  )}
                 </Box>
               </InputGroup>
               <InputGroup marginTop={"2"} flexDirection={"column"}>
