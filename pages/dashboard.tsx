@@ -1,17 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Link,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Link, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import LinkNext from "next/link";
 import { useAuth } from "../hooks/useAuth";
@@ -61,12 +49,7 @@ const Header: React.FC = () => {
         }}
       >
         <LinkNext href={"/"} passHref>
-          <Link
-            display={"flex"}
-            alignItems={"center"}
-            _active={{ border: "none" }}
-            _focus={{ border: "none" }}
-          >
+          <Link display={"flex"} alignItems={"center"} _active={{ border: "none" }} _focus={{ border: "none" }}>
             <IoMdArrowRoundBack />
           </Link>
         </LinkNext>
@@ -80,12 +63,7 @@ const Header: React.FC = () => {
       >
         Your Dashboard
       </Text>
-      <Button
-        marginLeft={"auto"}
-        alignSelf={"center"}
-        colorScheme={"red"}
-        onClick={handleSignOut}
-      >
+      <Button marginLeft={"auto"} alignSelf={"center"} colorScheme={"red"} onClick={handleSignOut}>
         Logout
       </Button>
     </Flex>
@@ -106,4 +84,5 @@ const TabComp: React.FC = () => {
     </Tabs>
   );
 };
+
 export default Dashboard;

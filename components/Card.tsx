@@ -39,7 +39,14 @@ export const Card: React.FC<TProps> = ({ title, description, link, image, userNa
         _hover={{ transform: "scale(0.9)" }}
         height={"450px"}
       >
-        <Image src={image} alt="post" minWidth={"300px"} minHeight={"150px"} objectFit="cover" />
+        <Image
+          src={image}
+          alt="post"
+          minWidth={"300px"}
+          minHeight={"150px"}
+          objectFit="cover"
+          referrerPolicy="no-referrer"
+        />
 
         <Box flex={"1"} display={"flex"} flexDir={"column"}>
           <Text fontWeight={"semibold"} color={"text"} padding={"3"}>
