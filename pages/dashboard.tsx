@@ -78,8 +78,8 @@ const TabComp: React.FC = () => {
         <Tab _selected={{ bg: "secondary", color: "text" }}>Pending</Tab>
       </TabList>
       <TabPanels>
-        <TabPanel> Posted </TabPanel>
-        <TabPanel>Pending</TabPanel>
+        <TabPanel> Coming Soon </TabPanel>
+        <TabPanel>Coming Soon</TabPanel>
       </TabPanels>
     </Tabs>
   );

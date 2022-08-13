@@ -29,7 +29,8 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
   return (
     <Container maxW={"1100px"}>
       <Navbar tags={tags} />
-      <Search />
+      {/* TODO: Search Feature will be done in the future 🤙 */}
+      {/* <Search /> */}
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
         {posts?.map((value) => {
           const { title, image, link, description, userInfo, tags: postTags } = value as TMap;
