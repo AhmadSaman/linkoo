@@ -4,7 +4,9 @@ import { Box, Text } from "@chakra-ui/react";
 const About: NextPage = () => {
   return (
     <Box>
-      <Text color={"text"}>About Page</Text>
+      <Text color={"text"} fontSize={"3xl"}>
+        About Page
+      </Text>
     </Box>
   );
 };
