@@ -1,5 +1,4 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/ibm-plex-sans";
 import { AuthProvider } from "../hooks/useAuth";
@@ -25,7 +24,7 @@ const textStyles = {
   },
 };
 const theme = extendTheme({ colors, fonts, textStyles });
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: any) {
   return (
     <ChakraProvider theme={theme}>
       <AuthProvider>
