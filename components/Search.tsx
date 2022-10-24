@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
-export const Search: React.FC = () => {
+import { searchPost } from "../apis/apis";
+
+interface TProps {
+  serverPosts: object[];
+  updatePosts: any;
+}
+
+export const Search: React.FC<TProps> = ({ serverPosts, updatePosts }: TProps) => {
+  const [searchValue, setSearchValue] = useState<string>("");
+  const handleSearch = (e: any) => {
+    const value = e.target.value;
+    setSearchValue(value);
+  };
+  useEffect(() => {
+    let timeout = setTimeout(async () => {
+      if (searchValue.length) {
+        const { data } = await searchPost(searchValue);
+        updatePosts(data);
+      } else {
+        updatePosts(serverPosts);
+      }
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [searchValue, updatePosts, serverPosts]);
   return (
     <Box width={["100%", "90", "60%"]} marginX={"auto"} marginY={"10"}>
       <InputGroup
@@ -17,7 +40,7 @@ export const Search: React.FC = () => {
         }}
       >
         <Input
-          placeholder="Search..."
+          placeholder="Search..(this search is based on words like 'react' not letter like 'r')"
           backgroundColor={"box"}
           _hover={{
             outline: "none",
@@ -26,6 +49,8 @@ export const Search: React.FC = () => {
           }}
           _active={{ outline: "none" }}
           _focus={{ outline: "none" }}
+          onChange={handleSearch}
+          value={searchValue}
         />
       </InputGroup>
     </Box>

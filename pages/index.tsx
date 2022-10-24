@@ -4,9 +4,10 @@ import Navbar from "../components/Navbar";
 import { Search } from "../components/Search";
 import { Card } from "../components/Card";
 import { getPosts, getTags } from "../apis/apis";
+import { useState } from "react";
 
 type TProps = {
-  posts: object[];
+  serverPosts: object[];
   tags: object[];
 };
 type TUserInfo = {
@@ -25,12 +26,15 @@ type TMap = {
   id: number;
 };
 
-const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
+const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
+  const [posts, setPosts] = useState(serverPosts);
+  console.log(posts);
+
   return (
     <Container maxW={"1100px"}>
       <Navbar tags={tags} />
-      {/* TODO: Search Feature will be done in the future 🤙 */}
-      {/* <Search /> */}
+      {/* TODO: Search Feature will be improved in the future 🤙 */}
+      <Search serverPosts={serverPosts} updatePosts={setPosts} />
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
         {posts?.map((value) => {
           const { title, image, link, description, userInfo, tags: postTags } = value as TMap;
@@ -54,11 +58,11 @@ const Home: NextPage<TProps> = ({ posts, tags }: TProps) => {
   );
 };
 export async function getServerSideProps() {
-  const { data: posts } = await getPosts();
+  const { data: serverPosts } = await getPosts();
   const { data: tags } = await getTags();
   return {
     props: {
-      posts,
+      serverPosts,
       tags,
     },
   };

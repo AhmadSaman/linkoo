@@ -6,6 +6,6 @@ const getPosts = () => supabase.from("posts");
 const postPost: (args: object) => PostgrestFilterBuilder<any> = (args: object) =>
   supabase.from("posts").insert(args, { returning: "minimal" });
 const getTags = () => supabase.from("tags");
-const searchPost = (search: string) => supabase.from("posts").select().textSearch("title", `"bun"`);
+const searchPost = (search: string) => supabase.from("posts").select().textSearch("title", `${search}`);
 
 export { getPosts, getTags, postPost, searchPost };
