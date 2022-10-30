@@ -4,6 +4,8 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import LinkNext from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import { NextRouter, useRouter } from "next/router";
+import { getUserPosts } from "../apis/apis";
+import supabase from "../utils/supabase";
 
 const Dashboard: React.FC = () => {
   const router: NextRouter = useRouter();
@@ -78,7 +80,7 @@ const TabComp: React.FC = () => {
         <Tab _selected={{ bg: "secondary", color: "text" }}>Pending</Tab>
       </TabList>
       <TabPanels>
-        <TabPanel> Coming Soon </TabPanel>
+        <TabPanel>Coming Soon</TabPanel>
         <TabPanel>Coming Soon</TabPanel>
       </TabPanels>
     </Tabs>
