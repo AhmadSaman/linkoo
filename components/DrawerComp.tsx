@@ -27,7 +27,7 @@ import { Controller, useForm } from "react-hook-form";
 import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { postPost } from "../apis/useApis";
+import useApis from "../apis/useApis";
 import { User, useUser } from "@supabase/auth-helpers-react";
 
 const schema = object({
@@ -60,6 +60,7 @@ type TInfo = {
 };
 type TTag = { id: string; name: string };
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: DrawerProps) => {
+  const { postPost } = useApis();
   const user: User | null = useUser();
   const [loadingInfo, setLoadingInfo] = React.useState<boolean>(false);
   const { register, handleSubmit, setValue, control, reset, watch } = useForm<FormValues>({
@@ -107,7 +108,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
     };
     reset();
     onClose();
-    // await postPost(newData);
+    await postPost(newData);
   };
 
   return (
