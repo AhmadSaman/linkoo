@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { Box, Button, Container, Flex, Link, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import LinkNext from "next/link";
-import { useAuth } from "../hooks/useAuth";
 import { NextRouter, useRouter } from "next/router";
-import { getUserPosts } from "../apis/apis";
 import supabase from "../utils/supabase";
+import { User } from "@supabase/supabase-js";
+import { useUser } from "@supabase/auth-helpers-react";
 
 const Dashboard: React.FC = () => {
   const router: NextRouter = useRouter();
-  const { user }: any = useAuth();
+  const user: User | null = useUser();
   useEffect(() => {
     if (!user) {
       router.push("/");
@@ -28,10 +28,9 @@ const Dashboard: React.FC = () => {
 
 const Header: React.FC = () => {
   const router: NextRouter = useRouter();
-  const { signOut }: any = useAuth();
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
     router.back();
-    signOut();
   };
 
   return (

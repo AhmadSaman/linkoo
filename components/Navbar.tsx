@@ -3,14 +3,21 @@ import NextLink from "next/link";
 import { Box, Flex, Text, Button, Avatar, useDisclosure, Link, Tooltip } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImGoogle } from "react-icons/im";
-import { useAuth, Values } from "../hooks/useAuth";
 import DrawerComp from "./DrawerComp";
+import { useSession, useUser } from "@supabase/auth-helpers-react";
+import supabase from "../utils/supabase";
 type TProps = {
   tags: object[];
 };
 const Navbar: React.FC<TProps> = ({ tags }: TProps) => {
+  const user = useUser();
+  const session = useSession();
+  const signIn = () =>
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const { user, signIn } = useAuth() as Values;
   const btnRef = React.useRef<HTMLButtonElement>(null);
   return (
     <Flex paddingY={5} justifyContent={"space-between"} alignItems={"center"}>

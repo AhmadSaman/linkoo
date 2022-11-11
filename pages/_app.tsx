@@ -1,7 +1,12 @@
 import "../styles/globals.css";
 import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/ibm-plex-sans";
-import { AuthProvider } from "../hooks/useAuth";
+import type { AppProps } from "next/app";
+//
+import { createBrowserSupabaseClient, Session } from "@supabase/auth-helpers-nextjs";
+import { useState } from "react";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+
 const colors = {
   text: "#EEEEEE",
   box: "#393E46",
@@ -24,14 +29,16 @@ const textStyles = {
   },
 };
 const theme = extendTheme({ colors, fonts, textStyles });
-function MyApp({ Component, pageProps }: any) {
+function MyApp({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
+  const AnyComponent = Component as any;
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
     <ChakraProvider theme={theme}>
-      <AuthProvider>
-        <Box background={"background"}>
-          <Component {...pageProps} />
-        </Box>
-      </AuthProvider>
+      <Box background={"background"}>
+        <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
+          <AnyComponent {...pageProps} />
+        </SessionContextProvider>
+      </Box>
     </ChakraProvider>
   );
 }

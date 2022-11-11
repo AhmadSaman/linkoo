@@ -28,7 +28,6 @@ type TMap = {
 
 const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
   const [posts, setPosts] = useState(serverPosts);
-  console.log(posts);
 
   return (
     <Container maxW={"1100px"}>
@@ -60,6 +59,7 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
 export async function getServerSideProps() {
   const { data: serverPosts } = await getPosts();
   const { data: tags } = await getTags();
+
   return {
     props: {
       serverPosts,

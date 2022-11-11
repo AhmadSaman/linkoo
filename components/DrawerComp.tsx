@@ -28,7 +28,7 @@ import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { postPost } from "../apis/apis";
-import { useAuth } from "../hooks/useAuth";
+import { User, useUser } from "@supabase/auth-helpers-react";
 
 const schema = object({
   link: string().required(),
@@ -60,7 +60,7 @@ type TInfo = {
 };
 type TTag = { id: string; name: string };
 const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: DrawerProps) => {
-  const { user }: any = useAuth();
+  const user: User | null = useUser();
   const [loadingInfo, setLoadingInfo] = React.useState<boolean>(false);
   const { register, handleSubmit, setValue, control, reset, watch } = useForm<FormValues>({
     defaultValues: { link: "", title: "", image: "", description: "", tags: [] },
@@ -103,7 +103,7 @@ const DrawerComp: React.FC<DrawerProps> = ({ btnRef, isOpen, onClose, tags }: Dr
       tags: changeTagsFormat(watch("tags")),
       approved: false,
       userId: user?.id,
-      userInfo: { name: user.user_metadata.name, avatar: user.user_metadata.avatar_url },
+      userInfo: { name: user && user.user_metadata.name, avatar: user && user.user_metadata.avatar_url },
     };
     reset();
     onClose();
