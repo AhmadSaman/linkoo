@@ -30,13 +30,12 @@ const textStyles = {
 };
 const theme = extendTheme({ colors, fonts, textStyles });
 function MyApp({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
-  const AnyComponent = Component as any;
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
     <ChakraProvider theme={theme}>
       <Box background={"background"}>
         <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
-          <AnyComponent {...pageProps} />
+          <Component {...pageProps} />
         </SessionContextProvider>
       </Box>
     </ChakraProvider>

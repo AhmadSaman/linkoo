@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { searchPost } from "../apis/apis";
+import useApis from "../apis/useApis";
+// import { searchPost } from "../apis/apis";
 
 interface TProps {
   serverPosts: object[];
@@ -9,6 +10,7 @@ interface TProps {
 }
 
 export const Search: React.FC<TProps> = ({ serverPosts, updatePosts }: TProps) => {
+  const { searchPost } = useApis();
   const [searchValue, setSearchValue] = useState<string>("");
   const handleSearch = (e: any) => {
     const value = e.target.value;
@@ -24,7 +26,7 @@ export const Search: React.FC<TProps> = ({ serverPosts, updatePosts }: TProps) =
       }
     }, 500);
     return () => clearTimeout(timeout);
-  }, [searchValue, updatePosts, serverPosts]);
+  }, [searchValue, updatePosts, serverPosts, searchPost]);
   return (
     <Box width={["100%", "90", "60%"]} marginX={"auto"} marginY={"10"}>
       <InputGroup

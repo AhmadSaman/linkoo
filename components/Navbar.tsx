@@ -4,14 +4,13 @@ import { Box, Flex, Text, Button, Avatar, useDisclosure, Link, Tooltip } from "@
 import { AiOutlinePlus } from "react-icons/ai";
 import { ImGoogle } from "react-icons/im";
 import DrawerComp from "./DrawerComp";
-import { useSession, useUser } from "@supabase/auth-helpers-react";
-import supabase from "../utils/supabase";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 type TProps = {
   tags: object[];
 };
 const Navbar: React.FC<TProps> = ({ tags }: TProps) => {
   const user = useUser();
-  const session = useSession();
+  const supabase = useSupabaseClient();
   const signIn = () =>
     supabase.auth.signInWithOAuth({
       provider: "google",

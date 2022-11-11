@@ -3,8 +3,9 @@ import { Box, Container } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import { Search } from "../components/Search";
 import { Card } from "../components/Card";
-import { getPosts, getTags } from "../apis/apis";
+import useApis from "../apis/useApis";
 import { useState } from "react";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 type TProps = {
   serverPosts: object[];
@@ -56,9 +57,10 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
     </Container>
   );
 };
-export async function getServerSideProps() {
-  const { data: serverPosts } = await getPosts();
-  const { data: tags } = await getTags();
+export async function getServerSideProps(ctx: any) {
+  const supabase = createServerSupabaseClient(ctx);
+  const { data: serverPosts } = await supabase.from("posts").select();
+  const { data: tags } = await supabase.from("tags").select();
 
   return {
     props: {

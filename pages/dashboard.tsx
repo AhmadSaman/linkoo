@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Flex, Link, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import LinkNext from "next/link";
 import { NextRouter, useRouter } from "next/router";
-import supabase from "../utils/supabase";
 import { User } from "@supabase/supabase-js";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 
 const Dashboard: React.FC = () => {
   const router: NextRouter = useRouter();
@@ -28,8 +27,9 @@ const Dashboard: React.FC = () => {
 
 const Header: React.FC = () => {
   const router: NextRouter = useRouter();
+  const supabaseClient = useSupabaseClient();
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    await supabaseClient.auth.signOut();
     router.back();
   };
 
