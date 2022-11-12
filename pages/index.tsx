@@ -59,7 +59,7 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
   );
 };
 export async function getServerSideProps(ctx: any) {
-  const res = await fetch("https://linkoo.vercel.app/api/index");
+  const res = await fetch("https://linkoo.vercel.app/api/index_page");
   const data = await res.json();
   console.log(ctx);
 
