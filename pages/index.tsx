@@ -6,6 +6,7 @@ import { Card } from "../components/Card";
 import useApis from "../apis/useApis";
 import { useState } from "react";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import axios from "axios";
 
 type TProps = {
   serverPosts: object[];
@@ -58,15 +59,12 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
   );
 };
 export async function getServerSideProps(ctx: any) {
-  const supabase = createServerSupabaseClient(ctx);
-  const { data: serverPosts } = await supabase.from("posts").select();
-  const { data: tags } = await supabase.from("tags").select();
+  const res = await fetch("https://linkoo.vercel.app/api/index");
+  const data = await res.json();
+  console.log(ctx);
 
   return {
-    props: {
-      serverPosts,
-      tags,
-    },
+    props: { ...data },
   };
 }
 
