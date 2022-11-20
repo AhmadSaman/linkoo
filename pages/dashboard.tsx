@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx: any) {
   };
 }
 
-const Dashboard: React.FC = ({ userData, tags }) => {
+const Dashboard: React.FC = ({ userData, tags }: any) => {
   const user: User | null = useUser();
 
   return (
