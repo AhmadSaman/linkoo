@@ -92,18 +92,18 @@ const Header: React.FC = () => {
 
 const TabComp: React.FC<any> = ({ postTags, posts }: any) => {
   const supabase = useSupabaseClient();
+  const user = useUser();
   const [unApprovedPosts, setUnApprovedPosts] = useState([]);
-  const [user, setUser] = useState<any>([]);
+  const [userRole, setUser] = useState<any>([]);
   const handelAcceptAll = async () => {
     await supabase.from("posts").update({ approved: true }).is("approved", false);
   };
   const getAdminPanelPosts = useCallback(async () => {
+    if (!user) return;
     const { data }: any = await supabase.from("posts").select("*").in("approved", [false]);
-    const {
-      data: [userAdmin],
-    }: any = await supabase.from("users_public_data").select("*").eq("role", "ADMIN");
+    const { data: userAdmin }: any = await supabase.from("users_public_data").select("*").eq("id", user.id);
     setUnApprovedPosts(data);
-    setUser(userAdmin);
+    setUser(userAdmin[0]?.role);
   }, []);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const TabComp: React.FC<any> = ({ postTags, posts }: any) => {
       <TabList>
         <Tab _selected={{ bg: "secondary", color: "text" }}>Posts</Tab>
         <Tab _selected={{ bg: "secondary", color: "text" }}>Pending</Tab>
-        {user.role === "ADMIN" && <Tab _selected={{ bg: "secondary", color: "text" }}>Admin</Tab>}
+        {userRole === "ADMIN" && <Tab _selected={{ bg: "secondary", color: "text" }}>Admin</Tab>}
       </TabList>
       <TabPanels>
         <TabPanel>
