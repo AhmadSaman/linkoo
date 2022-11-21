@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const { data: serverPosts }: PostgrestResponse<any[] | null> = await supabase
     .from("posts")
     .select()
-    .in("approved", [false]);
+    .in("approved", [true]);
   const { data: tags }: PostgrestResponse<any[] | null> = await supabase.from("tags").select();
 
   res.status(200).json({ serverPosts, tags });
