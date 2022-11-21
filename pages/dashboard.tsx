@@ -10,15 +10,15 @@ import { Card } from "../components/Card";
 
 export async function getServerSideProps(ctx: any) {
   const supabase = createServerSupabaseClient(ctx);
-  let userData: any[] | null = [];
-  let tags: any[] | null = [];
+  let userData: any = [];
+  let tags: any = [];
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   if (session) {
-    const { data } = await supabase.from("posts").select("*").in("userId", [session?.user.id]);
-    const { data: tag } = await supabase.from("tags").select("*");
+    const { data }: any = await supabase.from("posts").select("*").in("userId", [session?.user.id]);
+    const { data: tag }: any = await supabase.from("tags").select("*");
     userData = data;
     tags = tag;
   }
@@ -90,18 +90,18 @@ const Header: React.FC = () => {
   );
 };
 
-const TabComp: React.FC = ({ postTags, posts }: any) => {
+const TabComp: React.FC<any> = ({ postTags, posts }: any) => {
   const supabase = useSupabaseClient();
   const [unApprovedPosts, setUnApprovedPosts] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<any>([]);
   const handelAcceptAll = async () => {
     await supabase.from("posts").update({ approved: true }).is("approved", false);
   };
   const getAdminPanelPosts = useCallback(async () => {
-    const { data } = await supabase.from("posts").select("*").in("approved", [false]);
+    const { data }: any = await supabase.from("posts").select("*").in("approved", [false]);
     const {
       data: [userAdmin],
-    } = await supabase.from("users_public_data").select("*").eq("role", "ADMIN");
+    }: any = await supabase.from("users_public_data").select("*").eq("role", "ADMIN");
     setUnApprovedPosts(data);
     setUser(userAdmin);
   }, []);
@@ -121,8 +121,8 @@ const TabComp: React.FC = ({ postTags, posts }: any) => {
         <TabPanel>
           {" "}
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
-            {posts?.map((value) => {
-              const { title, image, link, description, userInfo, tags, approved } = value;
+            {posts?.map((value: any) => {
+              const { title, image, link, description, userInfo, tags, approved } = value as any;
 
               return (
                 approved && (
@@ -145,7 +145,7 @@ const TabComp: React.FC = ({ postTags, posts }: any) => {
         <TabPanel>
           {" "}
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
-            {posts?.map((value) => {
+            {posts?.map((value: any) => {
               const { title, image, link, description, userInfo, tags, approved } = value;
 
               return (
@@ -178,7 +178,7 @@ const TabComp: React.FC = ({ postTags, posts }: any) => {
           </Button>
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
             {unApprovedPosts?.map((value) => {
-              const { title, image, link, description, userInfo, tags } = value;
+              const { title, image, link, description, userInfo, tags } = value as any;
 
               return (
                 <Card
