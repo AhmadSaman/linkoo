@@ -1,3 +1,5 @@
+// it's so complex make the logic understandable and easy to read
+
 import React from "react";
 import NextLink from "next/link";
 import { Box, Flex, Text, Button, Avatar, useDisclosure, Link, Tooltip } from "@chakra-ui/react";

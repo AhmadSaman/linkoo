@@ -1,3 +1,5 @@
+// There is problem with sizing and there is a scroll in the card
+
 import React from "react";
 import { Badge, Box, Flex, Image, Text, Avatar, Link } from "@chakra-ui/react";
 import NextLink from "next/link";

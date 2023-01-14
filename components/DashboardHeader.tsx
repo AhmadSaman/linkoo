@@ -1,3 +1,5 @@
+// check the Code
+
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { NextRouter, useRouter } from "next/router";
 import { Flex, Button, Link, Text, Box } from "@chakra-ui/react";

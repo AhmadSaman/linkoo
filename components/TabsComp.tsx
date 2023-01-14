@@ -1,3 +1,5 @@
+// use Compound Component here
+
 import { Box, Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useCallback, useEffect, useState } from "react";
