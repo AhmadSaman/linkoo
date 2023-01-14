@@ -1,8 +1,8 @@
-// use Compound Component here
-
-import { Box, Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useCallback, useEffect, useState } from "react";
+import { Box, Button } from "@chakra-ui/react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+
+import Tabs from "./Tabs";
 import { Card } from "./Card";
 
 const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
@@ -27,13 +27,13 @@ const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
 
   return (
     <Tabs variant="soft-rounded" color={"text"}>
-      <TabList>
-        <Tab _selected={{ bg: "secondary", color: "text" }}>Posts</Tab>
-        <Tab _selected={{ bg: "secondary", color: "text" }}>Pending</Tab>
-        {userRole === "ADMIN" && <Tab _selected={{ bg: "secondary", color: "text" }}>Admin</Tab>}
-      </TabList>
-      <TabPanels>
-        <TabPanel>
+      <Tabs.list>
+        <Tabs.tab>Posts</Tabs.tab>
+        <Tabs.tab>Pending</Tabs.tab>
+        {userRole === "ADMIN" && <Tabs.tab>Admin</Tabs.tab>}
+      </Tabs.list>
+      <Tabs.panels>
+        <Tabs.panel>
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
             {posts?.map((value: any) => {
               const { title, image, link, description, userInfo, tags, approved } = value as any;
@@ -55,8 +55,8 @@ const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
               );
             })}
           </Box>
-        </TabPanel>
-        <TabPanel>
+        </Tabs.panel>
+        <Tabs.panel>
           {" "}
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
             {posts?.map((value: any) => {
@@ -79,8 +79,8 @@ const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
               );
             })}
           </Box>
-        </TabPanel>
-        <TabPanel>
+        </Tabs.panel>
+        <Tabs.panel>
           <Button
             onClick={handelAcceptAll}
             width={"full"}
@@ -109,8 +109,8 @@ const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
               );
             })}
           </Box>
-        </TabPanel>
-      </TabPanels>
+        </Tabs.panel>
+      </Tabs.panels>
     </Tabs>
   );
 };
