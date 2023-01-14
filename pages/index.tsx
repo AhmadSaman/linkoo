@@ -1,12 +1,10 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 import { Box, Container } from "@chakra-ui/react";
+
+import { Card } from "../components/Card";
 import Navbar from "../components/Navbar";
 import { Search } from "../components/Search";
-import { Card } from "../components/Card";
-import useApis from "../apis/useApis";
-import { useState } from "react";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import axios from "axios";
 
 type TProps = {
   serverPosts: object[];
