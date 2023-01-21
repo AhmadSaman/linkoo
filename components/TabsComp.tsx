@@ -1,36 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
 import { Box, Button } from "@chakra-ui/react";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import useSWR from "swr";
 
 import Tabs from "./Tabs";
 import { Card } from "./Card";
+import axios from "axios";
 
 const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
-  const supabase = useSupabaseClient();
-  const user = useUser();
-  const [unApprovedPosts, setUnApprovedPosts] = useState([]);
-  const [userRole, setUser] = useState<any>([]);
+  const { data, error, isLoading } = useSWR("api/admin/posts", (url) => axios.get(url).then((data) => data));
   const handelAcceptAll = async () => {
-    await supabase.from("posts").update({ approved: true }).is("approved", false);
+    const { data } = await axios.post("http://localhost:3000/api/admin/acceptall");
+    console.log(data);
   };
-  const getAdminPanelPosts = useCallback(async () => {
-    if (!user) return;
-    const { data }: any = await supabase.from("posts").select("*").in("approved", [false]);
-    const { data: userAdmin }: any = await supabase.from("users_public_data").select("*").eq("id", user.id);
-    setUnApprovedPosts(data);
-    setUser(userAdmin[0]?.role);
-  }, []);
-
-  useEffect(() => {
-    getAdminPanelPosts();
-  }, []);
 
   return (
     <Tabs variant="soft-rounded" color={"text"}>
       <Tabs.list>
         <Tabs.tab>Posts</Tabs.tab>
         <Tabs.tab>Pending</Tabs.tab>
-        {userRole === "ADMIN" && <Tabs.tab>Admin</Tabs.tab>}
+        {!!data?.data.data.length && <Tabs.tab>Admin</Tabs.tab>}
       </Tabs.list>
       <Tabs.panels>
         <Tabs.panel>
@@ -91,7 +78,7 @@ const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
             Accept All
           </Button>
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
-            {unApprovedPosts?.map((value) => {
+            {data?.data.data.map((value: any) => {
               const { title, image, link, description, userInfo, tags } = value as any;
 
               return (

@@ -5,6 +5,8 @@ import { Box, Container } from "@chakra-ui/react";
 import { Card } from "../components/Card";
 import Navbar from "../components/Navbar";
 import { Search } from "../components/Search";
+import axios from "axios";
+import useSWR from "swr";
 
 type TProps = {
   serverPosts: object[];
@@ -26,16 +28,17 @@ type TMap = {
   id: number;
 };
 
-const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
-  const [posts, setPosts] = useState(serverPosts);
+const Home: NextPage<TProps> = () => {
+  const { data, error, isLoading } = useSWR("http://localhost:3000/api/index_page", (url) => axios.get(url));
+  // const [posts, setPosts] = useState(serverPosts);
 
   return (
     <Container maxW={"1100px"}>
-      <Navbar tags={tags} />
+      <Navbar tags={data?.data.tags} />
       {/* TODO: Search Feature will be improved in the future 🤙 */}
-      <Search serverPosts={serverPosts} updatePosts={setPosts} />
+      {/* <Search serverPosts={serverPosts} updatePosts={setPosts} /> */}
       <Box display={"flex"} flexWrap={"wrap"} justifyContent={"space-evenly"} color={"white"}>
-        {posts?.map((value) => {
+        {data?.data.serverPosts?.map((value) => {
           const { title, image, link, description, userInfo, tags: postTags } = value as TMap;
 
           return (
@@ -47,7 +50,7 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
               link={link}
               userName={userInfo?.name}
               userImage={userInfo?.avatar}
-              tags={tags}
+              tags={data?.data.tags}
               postTags={postTags}
             />
           );
@@ -56,13 +59,5 @@ const Home: NextPage<TProps> = ({ serverPosts, tags }: TProps) => {
     </Container>
   );
 };
-export async function getServerSideProps(ctx: any) {
-  const res = await fetch("https://linkoo.vercel.app/api/index_page");
-  const data = await res.json();
-
-  return {
-    props: { ...data },
-  };
-}
 
 export default Home;
