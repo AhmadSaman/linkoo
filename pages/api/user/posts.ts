@@ -6,7 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  console.log(session);
 
   if (session) {
     const { data: posts }: any = await supabase.from("posts").select("*").in("userId", [session?.user.id]);
