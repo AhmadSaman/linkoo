@@ -24,7 +24,7 @@ type TMap = {
 };
 
 const Home: NextPage = () => {
-  const { data, isLoading } = useSWR("http://localhost:3000/api", (url) => axios.get(url));
+  const { data, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL}api`, (url) => axios.get(url));
 
   return (
     <Container maxW={"1100px"}>
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         {isLoading ? (
           <Spinner size="xl" thickness="4px" speed="0.65s" emptyColor="secondary" color="box" alignSelf={"center"} />
         ) : (
-          data?.data.serverPosts?.map((value: TMap) => (
+          data?.data.posts?.map((value: TMap) => (
             <Card
               key={value.link}
               title={value.title}
