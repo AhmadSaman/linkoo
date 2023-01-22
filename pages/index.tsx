@@ -24,7 +24,7 @@ type TMap = {
 };
 
 const Home: NextPage = () => {
-  const { data, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_URL}api`, (url) => axios.get(url));
+  const { data, isLoading } = useSWR("api", (url) => axios.get(url));
 
   return (
     <Container maxW={"1100px"}>

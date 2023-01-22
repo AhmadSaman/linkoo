@@ -8,7 +8,7 @@ import axios from "axios";
 const TabsComp: React.FC<any> = ({ postTags, posts }: any) => {
   const { data, error, isLoading } = useSWR("api/admin/posts", (url) => axios.get(url).then((data) => data));
   const handelAcceptAll = async () => {
-    const { data } = await axios.post("http://localhost:3000/api/admin/acceptall");
+    const { data } = await axios.post(`api/admin/acceptall`);
     console.log(data);
   };
 

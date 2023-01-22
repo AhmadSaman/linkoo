@@ -18,26 +18,26 @@ const DashboardHeader: React.FC = () => {
 
   return (
     <Flex paddingY={5}>
-      <Box
-        backgroundColor={"text"}
-        width={"40px"}
-        height={"40px"}
-        rounded={"full"}
-        alignSelf={"center"}
-        display={"flex"}
-        justifyContent={"center"}
-        transition={".3s"}
-        _hover={{
-          transform: "scale(.9)",
-          cursor: "pointer",
-        }}
-      >
-        <LinkNext href={"/"} passHref>
-          <Link display={"flex"} alignItems={"center"} _active={{ border: "none" }} _focus={{ border: "none" }}>
+      <LinkNext href={"/"} passHref>
+        <Box
+          backgroundColor={"text"}
+          width={"40px"}
+          height={"40px"}
+          rounded={"full"}
+          alignSelf={"center"}
+          display={"flex"}
+          justifyContent={"center"}
+          transition={".3s"}
+          _hover={{
+            transform: "scale(.9)",
+            cursor: "pointer",
+          }}
+        >
+          <Box display={"flex"} alignItems={"center"} _active={{ border: "none" }} _focus={{ border: "none" }}>
             <IoMdArrowRoundBack />
-          </Link>
-        </LinkNext>
-      </Box>
+          </Box>
+        </Box>
+      </LinkNext>
       <Text
         fontSize={["md", "md", "lg", "4xl"]}
         marginLeft={"5"}
