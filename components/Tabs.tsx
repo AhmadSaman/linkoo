@@ -1,6 +1,6 @@
 import { Tabs as ChakraTabs, Tab as ChakraTab, TabPanel, TabPanels, TabList } from "@chakra-ui/react";
 
-const Tabs = (props) => {
+const Tabs = (props: { children: React.ReactNode; variant?: string; color?: string }) => {
   return (
     <ChakraTabs variant="soft-rounded" color={"text"}>
       {props.children}
@@ -8,7 +8,7 @@ const Tabs = (props) => {
   );
 };
 
-const Tab = (props) => {
+const Tab = (props: { children: React.ReactNode }) => {
   return <ChakraTab _selected={{ bg: "secondary", color: "text" }}>{props.children}</ChakraTab>;
 };
 
