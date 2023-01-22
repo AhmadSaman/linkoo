@@ -1,8 +1,10 @@
+// Make the Search be focused just with / keydown
+// and make it more reusable and readable
+
 import React, { useEffect, useState } from "react";
-import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { BiSearchAlt2 } from "react-icons/bi";
+import { Box, Input, InputGroup } from "@chakra-ui/react";
+
 import useApis from "../apis/useApis";
-// import { searchPost } from "../apis/apis";
 
 interface TProps {
   serverPosts: object[];

@@ -1,3 +1,5 @@
+// There is problem with sizing and there is a scroll in the card
+
 import React from "react";
 import { Badge, Box, Flex, Image, Text, Avatar, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -21,7 +23,6 @@ type TTag = {
 
 export const Card: React.FC<TProps> = ({ title, description, link, image, userName, userImage, tags, postTags }) => {
   const showTags = postTags.map((postId) => tags.filter((tagVal: TTag) => tagVal.id === postId)[0]);
-
   return (
     <NextLink href={link} passHref>
       <Box
