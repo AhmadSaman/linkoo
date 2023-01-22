@@ -11,11 +11,10 @@ const DashboardHeader: React.FC = () => {
   const router: NextRouter = useRouter();
   const supabaseClient = useSupabaseClient();
 
-  // const handleSignOut = async () => {
-  //   await axios.post("http://localhost:3000/api/signout", { jwt: supabaseClient.changedAccessToken });
-  //   // await supabaseClient.auth.signOut();
-  //   router.back();
-  // };
+  const handleSignOut = async () => {
+    await supabaseClient.auth.signOut();
+    router.back();
+  };
 
   return (
     <Flex paddingY={5}>
