@@ -4,4 +4,4 @@
 
 ## For sharing resources
 
-This Repo is created for sharing resources among developers 🤯 for now the main functionalities are working  but two other features ✌ will be added in the future
+This Repo is for sharing resources among developers 🤯 for now the main functionalities are working  but two other features ✌ will be added in the future
